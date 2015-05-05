@@ -1,0 +1,96 @@
+
+CREATE DATABASE EXPOR
+CONNECT TO EXPOR
+CREATE SCHEMA STU AUTHORIZATION RANJAN
+
+
+CREATE TABLE USERS (SID VARCHAR(50) NOT NULL, NAME VARCHAR(30) NOT NULL, Sex CHAR CHECK (Sex in('M', 'm', 'F', 'f')), DOB DATE, CONTACT BIGINT, X INT, XII INT, EMAIL VARCHAR(50), PASSWORD VARCHAR(30) NOT NULL, SUB1 VARCHAR(10), SUB2 VARCHAR(10), SUB3 VARCHAR(10), PRIMARY KEY(SID))
+ALTER TABLE USERS ADD FOREIGN KEY (SUB1) REFERENCES SUBJECT(SUBID) ON DELETE SET NULL
+ALTER TABLE USERS ADD FOREIGN KEY (SUB2) REFERENCES SUBJECT(SUBID) ON DELETE SET NULL
+ALTER TABLE USERS ADD FOREIGN KEY (SUB3) REFERENCES SUBJECT(SUBID) ON DELETE SET NULL
+INSERT INTO USERS VALUES ('Y12UC067', 'B.S. GOYAL', 'M', '1/1/1994', '0000000000', '00', '00', 'bsgoyal8@gmail.com', 'Goyal', 'COA', 'DAA', 'DBMS')
+INSERT INTO USERS VALUES ('Y13UC165', 'MEGHA JAIN', 'F', '22/09/1995', '8741867390', '00', '00', 'annycool601@gmail.com', 'Megha', 'COA', 'DAA', 'DBMS')
+INSERT INTO USERS VALUES ('Y13UC221', 'RANJAN AGRAWAL', 'M', '14/1/1996', '9001777718', '78', '78', 'ranjan14196@gmail.com', 'Ranjan', 'COA', 'DAA', 'DBMS')
+INSERT INTO USERS VALUES ('Y13UC250', 'SAUMYA SHREE', 'F', '1/7/1995', '9414733389', '00', '00', 'saumya.s09@gmail.com', 'Saumya', 'COA', 'DAA', 'DBMS')
+INSERT INTO USERS VALUES ('Y13UC298', 'SURABHI JAIN', 'F', '8/11/1995', '0000000000', '00', '00', 'surabhijain.888@gmail.com', 'Surabhi', 'COA', 'DAA', 'DBMS')
+REORG TABLE USERS
+
+CREATE TABLE SUBJECT (SUBID VARCHAR(10) NOT NULL, NAME VARCHAR(50) NOT NULL, PRIMARY KEY(SUBID))
+INSERT INTO SUBJECT VALUES ('COA', 'Computer Organization and Architecture')
+INSERT INTO SUBJECT VALUES ('DAA', 'Design and Analysis of Algorithms')
+INSERT INTO SUBJECT VALUES ('DBMS', 'Database and Management System')
+REORG TABLE SUBJECT
+
+CREATE TABLE TEST (TESTID VARCHAR(20) NOT NULL, SID VARCHAR(50) NOT NULL, SUBID VARCHAR(10) NOT NULL, NQUES INT DEFAULT 10, NCRRTQ INT DEFAULT 0,TDATE DATE, PRIMARY KEY(TESTID))
+ALTER TABLE TEST ADD FOREIGN KEY (SID) REFERENCES USERS(SID)
+ALTER TABLE TEST ADD FOREIGN KEY (SUBID) REFERENCES SUBJECT(SUBID)
+REORG TABLE TEST
+
+CREATE TABLE QOBJ (QID VARCHAR(10) NOT NULL, SUBID VARCHAR(10), QUES VARCHAR(300), OPTA VARCHAR(200), OPTB VARCHAR(200), OPTC VARCHAR(200), OPTD VARCHAR(200), ANS CHAR, PRIMARY KEY(QID))
+ALTER TABLE QOBJ ADD FOREIGN KEY (SUBID) REFERENCES SUBJECT(SUBID) ON DELETE SET NULL
+INSERT INTO QOBJ VALUES ('QOBJ0001', 'COA', 'To extend the connectivity of the processor bus we use ______ .', 'PCI bus', 'SCSI bus', 'Controllers', 'Multiple bus', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0002', 'COA', 'In case of, Zero-address instruction method the operands are stored in _______.', 'Registers', 'Accumulators', 'Push down stack', 'Cache', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0003', 'COA', 'The addressing mode which makes use of in-direction pointers is ______ .', 'Indirect addressing mode', 'Index addressing mode', 'Relative addressing mode', 'Offset addressing mode', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0004', 'COA', 'In the following indexed addressing mode instruction, MOV 5(R1),LOC the effective address is ______ .', 'EA = 5+R1', 'EA = R1', 'EA = [R1]', 'EA = 5+[R1]', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0005', 'COA', 'The addressing mode, where you directly specify the operand value is', 'Immediate', 'Direct', 'Definite', 'Relative', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0006', 'COA', 'A source program is usually in ', 'Assembly language', 'Machine level language', 'High-level language', 'Natural language', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0007', 'COA', 'The small extremely fast, RAM’s are called as', 'Cache', 'Heaps', 'Accumulators', 'Stacks', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0008', 'COA', 'To reduce the memory access time we generally make use of', 'Heaps', 'Higher capacity RAM’s', 'SDRAM’s', 'Cache’s', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0009', 'COA', '____ converts the programs written in assembly language into machine instructions.', 'Machine compiler', 'Interpreter', 'Assembler', 'Converter', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0010', 'COA', 'The instructions like MOV or ADD are called as', 'OP-Code', 'Operators', 'Commands', 'None of the above', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0011', 'COA', 'The alternate way of writing the instruction, ADD #5,R1 is', 'ADD [5],[R1];', 'ADDI 5,R1;', 'ADDIME 5,[R1];', 'There is no other way', 'B')
+INSERT INTO QOBJ VALUES ('QOBJ0012', 'COA', 'The last statement of the source program should be', 'Stop', 'Return', 'OP', 'End', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0013', 'COA', 'The effectiveness of the cache memory is based on the property of ________.', 'Locality of reference', 'Memory localisation', 'Memory size', 'None of the above', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0014', 'COA', 'The algorithm to remove and place new contents into the cache is called', 'Replacement algorithm', 'Renewal algorithm', 'Updation', 'None of the above', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0015', 'COA', 'The bit used to signify that the cache location is updated is', 'Dirty bit', 'Update bit', 'Reference bit', 'Flag bit', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0016', 'COA', 'The number successful accesses to memory stated as a fraction is called as', 'Hit rate', 'Miss rate', 'Success rate', 'Access rate', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0017', 'COA', 'The number failed attempts to access memory, stated in the form of fraction is called as', 'Hit rate', 'Miss rate', 'Failure rate', 'Delay rate', 'B')
+INSERT INTO QOBJ VALUES ('QOBJ0018', 'COA', 'The extra time needed to bring the data into memory in case of a miss is called as', 'Delay', 'Propagation time', 'Miss penalty', 'None of the above', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0019', 'COA', 'The computer architecture aimed at reducing the time of execution of instructions is', 'CISC', 'RISC', 'ISA', 'ANNA', 'B')
+INSERT INTO QOBJ VALUES ('QOBJ0020', 'COA', 'Pipe-lining is a unique feature of', 'RISC', 'CISC', 'ISA', 'IANA', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0021', 'DAA', 'Insertion sort:', 'Sorts in place:', 'Best case is o(n)', 'worst case is o(n2)', 'all the above', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0022', 'DAA', 'Bubble Sort:', 'Increamental design approach', 'Sorts in place:', 'Running time:o(n2)', 'all the above', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0023', 'DAA', 'For Selection sort which of the following is wrong', 'Design approach:decremental', 'Sorts in place', 'Running time:o(n2)', 'all the above', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0024', 'DAA', 'For merge sort which of the follwing is correct', 'Design approach:incremental', 'Sorts in place', 'Running time-o(nlogn)', 'all the above', 'B')
+INSERT INTO QOBJ VALUES ('QOBJ0025', 'DAA', 'Running time of insertion sort is ', 'o(nlogn)', 'o(n)', 'o(n2)', 'none of the above', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0026', 'DAA', 'Running time of Strassen''s algorithm is:', 'o(n^3)', 'o(n^5.6)', 'o(n^2.81)', 'o(n^7.8)', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0027', 'DAA', 'Running time of vounting inversion is:', 'o(n)', 'o(n^2)', 'o(n^3)', 'o(logn)', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0028', 'DAA', 'Let G be a connected graph, and let L0, …, Lkbe the layers produced by BFS starting at node s. Which of the following holds', ' No edge of G joins two nodes of the same layer, and G is bipartite', ' An edge of G joins two nodes of the same layer, and G contains an odd-length cycle (Not Bipartite)', 'a or b', 'none of the above', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0029', 'DAA', 'Let G be an undirected graph. Which of the following statements are equivalent:', 'G is bipartite,', 'G is 2-colorable,', 'G has no odd-length cycle,', 'all of the above', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0030', 'DAA', 'Which of the following types of edges does undirected graph doesnt have', 'tree edge', 'back edge', 'forward edge', 'all of the above', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0031', 'DBMS', 'The value in the foreign key column (or columns) FK of the referencing relation R1 can be either:', ' a value of an existing primary key value of the corresponding primary key PK in the referenced relation R2, or..', ' a null', 'both a and b', 'none of these', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0032', 'DBMS', 'Which key is simply a non-minimal Candidate Key, that is to say one with additional columns not strictly required to ensure uniqueness of the row.', 'primary key', 'super key', 'foreign key', 'none of these', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0033', 'DBMS', 'A relation schema R is in 2NF if and only if', ' it is in 1NF', 'every non-prime attribute (an attribute which is not part of any candidate key) is fully functionally dependent on every candidate key of R.', 'both a and b', 'none of these', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0034', 'DBMS', 'Transitive functional dependency – a FD X -> Z that can be derived from:', 'X -> Y', 'Y -> Z', 'both a and b', ' none of these', 'B')
+INSERT INTO QOBJ VALUES ('QOBJ0035', 'DBMS', 'A relation schema R is in third normal form (3NF) if whenever a non-trivial FD X -> A holds in R, then ', 'X is a superkey of R', ' A is a prime attribute of R', 'none of these', 'either a or b', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0036', 'DBMS', 'Every BCNF relation is in:', 'BCNF and 1NF', '1NF and 2NF', '1NF and 2NF and 3NF', 'none of these', 'C')
+INSERT INTO QOBJ VALUES ('QOBJ0037', 'DBMS', 'What is pseudotransitivity', 'If X->Y and WY -> Z, then WX -> Z', 'X -> YZ, then X -> Y and X -> Z', 'If X -> Y and X -> Z, then X -> YZ', 'if X -> Y then XZ -> YZ', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0038', 'DBMS', 'Two sets of FDs F and G are equivalent if:', 'every FD in F can be inferred from G', 'every FD in G can be inferred from F', 'none of a and b', 'both a and b', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0039', 'DBMS', 'A set F of FDs is said to be minimal (irreducible) if and only if', 'Every FD in F has a single attribute for its right-hand side (dependent) (canonical form)', 'All FDs in F are left-irreducible', 'No FD in F can be discarded from F without changing F+', ' all the above ', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0040', 'DBMS', 'A decomposition D is dependency-preserving w.r.t. F if', 'the union of the projections of F on each Ri in D is equivalent to F.', 'the union of the projections of F on each Ri in D is not equivalent to F.', 'the union of the projections of F on each Ri in D is decoposable to F.', 'none of the above', 'A')
+INSERT INTO QOBJ VALUES ('QOBJ0041', 'DBMS', 'Which of the following is not a secondary storage medium?', 'Magnetic disks', 'Optical disks', 'tapes', 'cache memory', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0042', 'DBMS', 'If one transaction is calculating an aggregate summary function on a number of records while other transactions are updating some of these records, the aggregate function may calculate some values before they are updated and others after they are updated.This is known as:', 'lost update problem', 'incorrect simmary problem', 'dirty read problem', 'none of these', 'B')
+INSERT INTO QOBJ VALUES ('QOBJ0043', 'DBMS', 'Once a transaction changes the database and the changes are committed, these changes must never be lost because of subsequent failure. Which ACID property of transaction is this?', 'atomicity', 'consistency', 'isolation', 'durability', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0044', 'DBMS', 'The schedule "Sa = r1(X), r2(X), w1(X), r1(Y), w2(X), c2, w1(Y), c1" is', 'strict', 'non-recoverable', 'cascadeless', 'none of the above', 'D')
+INSERT INTO QOBJ VALUES ('QOBJ0045', 'DBMS', 'A schedule for which every transaction T participating in the schedule, all the operations of T are executed consecutively in the schedule is', 'serial schedule', 'serializable schedule', 'both', 'none of the above', 'A')
+REORG TABLE QOBJ
+
+CREATE TABLE QTF (QID VARCHAR(10) NOT NULL, SUBID VARCHAR(10), QUES VARCHAR(200), ANS CHAR, PRIMARY KEY(QID))
+ALTER TABLE QTF ADD FOREIGN KEY (SUBID) REFERENCES SUBJECT(SUBID) ON DELETE SET NULL
+INSERT INTO QTF VALUES ('QTF00001', 'DAA', 'Is O(n lg n) the best we can do as long as we are using comarison sorting algorithms', 'T')
+INSERT INTO QTF VALUES ('QTF00002', 'DAA', 'A graph is connected if there is a path from every vertex to every other vertex', 'T')
+INSERT INTO QTF VALUES ('QTF00003', 'DAA', 'Running time of bfs is o(v^2)', 'F')
+INSERT INTO QTF VALUES ('QTF00004', 'DAA', 'Running time of dfs is O(V+E)', 'T')
+INSERT INTO QTF VALUES ('QTF00005', 'DAA', 'A bipartite graph is 3-colourable', 'F')
+INSERT INTO QTF VALUES ('QTF00006', 'DAA', 'u is a DFS ancestor of v if and only if[d[u],f[u]] encloses [d[v],f[v]], that is, d[u]<= d[v] < f[v] f[u].', 'T')
+INSERT INTO QTF VALUES ('QTF00007', 'DAA', 'Node u is a DFS ancestor of node v if and only ifwhen u is discovered, there is a path of all white nodes from u to v.', 'T')
+INSERT INTO QTF VALUES ('QTF00008', 'DAA', 'G has a cycle if and only ifDFS(G) has a forward-edge.', 'F')
+INSERT INTO QTF VALUES ('QTF00009', 'DAA', 'A Directed Acyclic Graph G has at least one vertex with in-degree 0', 'T')
+INSERT INTO QTF VALUES ('QTF00010', 'DAA', 'Reverse BFS Post-Order, i.e., reverse DFS finishing time is a topological order on a DAG.', 'F')
+INSERT INTO QTF VALUES ('QTF00011', 'COA', 'The miss penalty can be reduced by improving the mechanisms for data transfer between the different levels of hierarchy.', 'T')
+INSERT INTO QTF VALUES ('QTF00012', 'COA', 'The RISC processor has a more complicated design than CISC.', 'F')
+INSERT INTO QTF VALUES ('QTF00013', 'COA', 'The list of instruction is called software', 'F')
+INSERT INTO QTF VALUES ('QTF00014', 'COA', 'The internal storage of a computer is called memory', 'T')
+INSERT INTO QTF VALUES ('QTF00015', 'COA', 'Instruction register contains the address of an instruction to be fetched.', 'F')
+INSERT INTO QTF VALUES ('QTF00016', 'COA', 'The location of the memory is provided by the input called as address.', 'T')
+INSERT INTO QTF VALUES ('QTF00017', 'COA', 'DMA stands for Direct Memory Address', 'F')
